@@ -24,3 +24,25 @@ The below image gives a visual of the data pipeline and the task dependencies as
 * Airflow then inserts the data from the staging table into the Fact table of the database as per the principle of Star Schema design of relational databases.
 * Once data is inserted into the fact table, Airflow inserts the data into the dimension tables which all relates back to the Fact table. (Primary key of each of the dimension table is registered as the foreign key in the Fact table).
 * Finally, data quality checks are performed against each of the facts and dimension tables to ensure that they have actually been populated with data and that data inside is as expected.
+
+## Running the Scripts
+
+### Udacity Workspace
+
+Just clone the contents of this repo and place it under your `/home/username/airflow/` path. Set up the AWS and Redshift connections with your details from the Airflow Webbrowser. You should see a DAG with the name `AirflowProject` show up, turn the DAG on and trigger it which will start the Data Pipeline.
+
+### Locally in Ubuntu (Only works if you have S3 and Redshift Access)
+
+Ensure you have ubuntu 16.04 or 18.04 installed and Python 3.6 or greater.
+
+* Follow the instructions in this ![link](https://www.ryanmerlin.com/2019/07/apache-airflow-installation-on-ubuntu-18-04-18-10/) until but not including the secion **Scheduling Airflow to run as a background daemon with systemd**.
+* Once set up as per previous instruction, clone the contents of this repo and place it in the path `/home/username/airflow`. 
+* Execute the below commands in your Ubuntu terminal to start airflow in Daemon mode
+```bash
+airflow initdb
+airflow scheduler -D
+airflow webserver -D
+```
+* Open your browser and navigate to `localhost:8080` you should then see the Airflow UI load up. You should also see a DAG with the name `AirflowProject`. 
+* Click on `Admin` in the UI and then click on `Connection` and then click on `Create`. Create the two connections shown below in the images with your AWS Details
+* Turn the DAG ON and let Airflow start the data pipeline by clicking on the Run icon in the same row as the DAG.
