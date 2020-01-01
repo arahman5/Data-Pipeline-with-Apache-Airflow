@@ -97,7 +97,7 @@ load_song_dimension_table = LoadDimensionOperator(
     aws_credentials_id="aws_credentials",
     redshift_conn_id='redshift',
     sql_query=SqlQueries.song_table_insert,
-    table="users",
+    table="songs",
     start_date= datetime(2018, 7, 1),
 )
 
@@ -107,7 +107,7 @@ load_artist_dimension_table = LoadDimensionOperator(
     aws_credentials_id="aws_credentials",
     redshift_conn_id='redshift',
     sql_query=SqlQueries.artist_table_insert,
-    table="users",
+    table="artists",
     start_date= datetime(2018, 7, 1),
 )
 
@@ -117,7 +117,7 @@ load_time_dimension_table = LoadDimensionOperator(
     aws_credentials_id="aws_credentials",
     redshift_conn_id='redshift',
     sql_query=SqlQueries.time_table_insert,
-    table="users",
+    table="time",
     start_date= datetime(2018, 7, 1),
 )
 
@@ -127,7 +127,7 @@ run_quality_checks = DataQualityOperator(
     provide_context=True,
     aws_credentials_id="aws_credentials",
     redshift_conn_id='redshift',
-    tables=["songplay", "users", "song", "artist", "time"]
+    tables=["songplays", "users", "song", "artist", "time"]
 )
 
 # Task to indicate end of the data pipeline
